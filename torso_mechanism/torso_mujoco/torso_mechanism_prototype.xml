@@ -1,0 +1,137 @@
+<mujoco model="torso_mechanism">
+
+    <compiler meshdir="torso_RSU_stl"/>
+    <option gravity="0 0 -9.81" timestep="0.001" integrator="RK4" iterations="500" tolerance="1e-20"/>
+
+    <statistic center="0 0 0.1" extent="1.5"/>
+
+    <default>
+        <geom rgba="0.75 0.76 0.78 1" solref="0.5 0.5" solimp="0.5 0.5 0.001 5 3"/>
+        <mesh scale="0.001 0.001 0.001" />
+        <joint damping="0.01"/>
+        <site type="sphere" size="0.00125" rgba="0 0 1 0.1"/>
+    </default>
+
+    <visual>
+        <map force="1" zfar="10"/>
+        <global elevation="-30" azimuth="210" fovy="15"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="ground plane" type="2d" builtin="checker" mark="edge" width="512" height="512" rgb1=".2 .3 .4" rgb2=".1 .2 .3" markrgb="0.5 0.5 0.5"/>
+
+        <material name="ground plane" texture="ground plane" texrepeat="10 10" texuniform="true" reflectance="0.2"/>
+
+        <mesh name="waist_link" file="waist_link.stl"/>
+        <mesh name="base_link" file="base_link.stl"/>
+        <mesh name="spider" file="spider.stl"/>
+        <mesh name="torso" file="torso.stl"/>
+        <mesh name="crank_1" file="crank_1.stl"/>
+        <mesh name="crank_2" file="crank_2.stl"/>
+        <mesh name="rod_1" file="rod_1.stl"/>
+        <mesh name="rod_2" file="rod_2.stl"/>
+        <mesh name="s_spider" file="s_spider.stl"/>
+    </asset>
+
+    <worldbody>
+        <geom name="floor" type="box" size="10 10 0.001" pos="0 0 0" material="ground plane" condim="3"/>
+        <light name="spotlight" diffuse="0.1 0.1 0.1" specular="0.8 0.6 0.4" pos="0 0 1"/>
+        <light name="top" pos="0 0 3" mode="trackcom" castshadow="false"/>
+
+        <body name="waist_link" euler="0 0 0" pos="0 0 -0.08778">
+            <geom name="waist_link" type="mesh" mesh="waist_link"/> 
+
+            <body name="base_link" euler="0 0 0" pos="0 0 0.12778">
+                <geom name="base_link" type="mesh" mesh="base_link"/>
+                <joint name="Yaw" type="hinge" pos="0 0 0" axis="0 0 1" range="-180 180" />
+
+                <!-- Main Branch 1 -->
+                <body name="spider" euler="0 0 0" pos="0 0 0.054">
+                    <geom name="spider" type="mesh" mesh="spider"/>
+                    <joint name="Roll" type="hinge" pos="0 0 0" axis="1 0 0" range="-15 15" />
+                    <body name="torso" euler="0 0 0" pos="0 0 0">
+                        <geom name="torso" type="mesh" mesh="torso"/>
+                        <joint name="Pitch" type="hinge" pos="0 0 0" axis="0 1 0" range="-20 20" />
+                        <body name="crank1" euler="0 0 0" pos="0 0.04 0.095 ">
+                            <geom name="crank1" type="mesh" mesh="crank_1" />
+                            <joint name="Joint_18" type="hinge" pos="0 0 0" axis="0 1 0" />
+                            <body name="rod1" euler="0 0 0" pos="0.075 0 0" >
+                                <geom name="rod1" type="mesh" mesh="rod_1"  contype="0" conaffinity="0"/>
+                                <joint name="Spherical_Joint_1" type="ball" />
+                                <site name="a1" pos="0.005 0.005 -0.084"/>
+                                <site name="b1" pos="-0.005 0.005 -0.084"/>
+                                <site name="c1" pos="-0.005 -0.005 -0.084"/>
+                                <site name="d1" pos="0.005 -0.005 -0.084"/>
+                            </body>
+                        </body>
+                        <body name="crank2" euler="0 0 0" pos="0 -0.04 0.095 ">
+                            <geom name="crank2" type="mesh" mesh="crank_2" />
+                            <joint name="Joint_19" type="hinge" pos="0 0 0" axis="0 1 0" />
+                            <body name="rod2" euler="0 0 0" pos="0.075 0 0">
+                                <geom name="rod2" type="mesh" mesh="rod_1"  contype="0" conaffinity="0"/>
+                                <joint name="Spherical_Joint_2" type="ball" />
+                                <site name="a2" pos="0.005 0.005 -0.084"/>
+                                <site name="b2" pos="-0.005 0.005 -0.084"/>
+                                <site name="c2" pos="-0.005 -0.005 -0.084"/>
+                                <site name="d2" pos="0.005 -0.005 -0.084"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+
+                <!-- Main Branch 2 -->
+                <body name="s_spider1" euler="0 0 0" pos="0.075 0.04 0.034">
+                    <geom name="s_spider1" type="mesh" mesh="s_spider"/>
+                    <joint name="UJ1_pitch" type="hinge" pos="0 0 0" axis="0 1 0" />
+                    <body name="rod_1" euler="0 0 0" pos="0 0 0">
+                        <joint name="UJ1_roll" type="hinge" pos="0 0 0" axis="1 0 0" />
+                        <geom name="rod_1" type="mesh" mesh="rod_2" contype="0" conaffinity="0"/>
+                        <site name="e1" pos="0.005 0.005 0.031"/>
+                        <site name="f1" pos="-0.005 0.005 0.031"/>
+                        <site name="g1" pos="-0.005 -0.005 0.031"/>
+                        <site name="h1" pos="0.005 -0.005 0.031"/>
+                    </body>
+                </body>
+
+                <!-- Main Branch 3 -->
+                <body name="s_spider2" euler="0 0 0" pos="0.075 -0.04 0.034">
+                    <geom name="s_spider2" type="mesh" mesh="s_spider"/>
+                    <joint name="UJ2_pitch" type="hinge" pos="0 0 0" axis="0 1 0" />
+                    <body name="rod_2" euler="0 0 0" pos="0 0 0">
+                        <joint name="UJ2_roll" type="hinge" pos="0 0 0" axis="1 0 0" />
+                        <geom name="rod_2" type="mesh" mesh="rod_2" contype="0" conaffinity="0"/>
+                        <site name="e2" pos="0.005 0.005 0.031"/>
+                        <site name="f2" pos="-0.005 0.005 0.031"/>
+                        <site name="g2" pos="-0.005 -0.005 0.031"/>
+                        <site name="h2" pos="0.005 -0.005 0.031"/>
+                    </body>
+                </body>
+
+            </body>
+        </body>
+    </worldbody>
+
+    <equality>
+        <weld site1="a1" site2="e1"/>
+        <weld site1="b1" site2="f1"/>
+        <weld site1="c1" site2="g1"/>
+        <weld site1="d1" site2="h1"/>
+        <weld site1="a2" site2="e2"/>
+        <weld site1="b2" site2="f2"/>
+        <weld site1="c2" site2="g2"/>
+        <weld site1="d2" site2="h2"/>
+    </equality>
+
+    <actuator>
+        <position name="Roll" joint="Roll" kp="150" kv="10" ctrlrange="-0.26179 0.26179"/>
+        <position name="Pitch" joint="Pitch" kp="150" kv="10" ctrlrange="-0.349066 0.349066"/>
+        <position name="Yaw" joint="Yaw" kp="800" kv="120" ctrlrange="-1.57080 1.57080"/>
+    </actuator>
+
+    <sensor>
+        <jointpos name="joint18_position" joint="Joint_18" />
+        <jointpos name="joint19_position" joint="Joint_19" />
+    </sensor>
+
+</mujoco>
