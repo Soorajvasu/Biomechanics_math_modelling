@@ -5,4 +5,5 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "kinematics-utils"
 version = "1.0.0"
+description = " contains all plot, IK solve and transform functions"
 dependencies = ["numpy", "sympy", "matplotlib"]
