@@ -13,12 +13,12 @@
     </default>
 
     <visual>
-        <map force="1" zfar="10"/>
+        <map force="1" zfar="10	"/>
         <global elevation="-30" azimuth="210" fovy="15"/>
     </visual>
 
     <asset>
-        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0.3 0.5 0.7" width="512" height="512"/>
         <texture name="ground plane" type="2d" builtin="checker" mark="edge" width="512" height="512" rgb1=".2 .3 .4" rgb2=".1 .2 .3" markrgb="0.5 0.5 0.5"/>
 
         <material name="ground plane" texture="ground plane" texrepeat="10 10" texuniform="true" reflectance="0.2"/>
@@ -35,9 +35,9 @@
     </asset>
 
     <worldbody>
-        <geom name="floor" type="box" size="10 10 0.001" pos="0 0 0" material="ground plane" condim="3"/>
-        <light name="spotlight" diffuse="0.1 0.1 0.1" specular="0.8 0.6 0.4" pos="0 0 1"/>
-        <light name="top" pos="0 0 3" mode="trackcom" castshadow="false"/>
+        <geom name="floor" type="box" size="1 1 0.001" pos="0 0 0" material="ground plane" condim="3"/>
+        <light name="spotlight" diffuse="1 1 1" specular="0.8 0.6 0.4" pos="0 0 1"/>
+        <light name="top" pos="0 0 5" mode="trackcom" castshadow="false"/>
 
         <body name="waist_link" euler="0 0 0" pos="0 0 -0.08778">
             <geom name="waist_link" type="mesh" mesh="waist_link"/> 
