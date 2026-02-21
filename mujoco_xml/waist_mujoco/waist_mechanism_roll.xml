@@ -1,0 +1,117 @@
+<mujoco model="waist_mechanism">
+
+    <compiler meshdir="mesh" />
+    <option gravity="0 0 -9.81" timestep="0.0001" integrator="RK4"/>
+
+    <default>
+        <!-- stiffer contacts -->
+        <geom solref="0.99 1.5" solimp="0.99 0.99 0.99 2 3"/>
+        <mesh scale="0.001 0.001 0.001" />
+    </default>
+
+    <visual>
+        <map force="1" zfar="3"/>
+        <rgba haze="0 0 0 1"/>
+        <global elevation="-30" azimuth="135"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="32" height="512"/>
+        <texture name="body" type="cube" builtin="flat" mark="cross" width="128" height="128" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1"/>
+        <material name="body" texture="body" texuniform="true" rgba="0.8 0.6 .4 1"/>
+        <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="20 20" texuniform="true" reflectance=".5"/>  
+    </asset>
+
+    <worldbody>
+        <geom name="floor" type="box" size="0.5 0.5 0.01" pos="0 0 0" material="grid" condim="3"/>
+        <light name="spotlight" diffuse="0.7 0.7 0.7" specular="1 1 1" pos="0 0 1" cutoff="3" castshadow="false"/>
+        <light name="top" pos="0 0 2" mode="trackcom" castshadow="false"/>
+        <light name="front" pos="0.1 0 0.5" mode="trackcom" />
+
+        <body name="base0" pos="0 0 0">
+            <!-- <geom name="base" type="box" size="0.1 0.1 0.015" rgba="0.8 0.2 0.2 1"/> -->
+
+            <!-- base1 -->
+            <body name="base1" euler="90 0 0" pos="0.055 -0.06 0.065">
+                <inertial pos="0 0 0" mass="0.001" diaginertia="0.1 0.1 0.1"/>
+                <geom name="base1_geom" type="cylinder" size="0.005 0.01" rgba="0.8 0.2 0.2 1"/>
+                <joint name="s_spider1" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.2"/>
+                <!-- dummy1 -->
+                <body name="dummy1" euler="0 0 0" pos="0 0 0">
+                    <joint name="s_spider1_1" type="hinge" pos="0 0 0" axis="1 0 0" damping="0.2"/>
+                    <geom name="dummy1" type="sphere" size="0.001" rgba="0.8 0.2 0.2 1"/>
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="0.1 0.1 0.1"/>
+                    <site name="SS1" pos="0 0 0" type="sphere" size="0.008" rgba="0 0 1 1"/>
+                </body>
+            </body>
+
+            <!-- base2 -->
+            <body name="base2" euler="90 0 0" pos="0.055 0.06 0.065">
+                <geom name="base2_geom" type="cylinder" size="0.005 0.01" rgba="0.8 0.2 0.2 1"/>
+                <joint name="s_spider2" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.2"/>
+                <!-- dummy2 -->
+                <body name="dummy2" euler="0 0 0" pos="0 0 0">
+                    <joint name="s_spider2_1" type="hinge" pos="0 0 0" axis="1 0 0" damping="0.2"/>
+                    <geom name="dummy2" type="sphere" size="0.001" rgba="0.8 0.2 0.2 1"/>
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="0.1 0.1 0.1"/>
+                    <site name="SS2" pos="0 0 0" type="sphere" size="0.008" rgba="0 0 1 1"/>
+                </body>
+            </body>
+            
+            <body name="spider" pos="0 0 0.065" euler="90 0 0">
+                <geom type="cylinder" size="0.01 0.025" rgba="0.8 0.2 0.2 1"/>
+                <joint name="roll" pos="0 0 0" type="hinge" axis="1 0 0" range="-15 15" damping="0.002"/>
+
+                <body name="torso" pos="0 0.085 0" euler="-90 0 0">
+                    <geom type="box" size="0.025 0.035 0.05" pos ="0 0 0.05" rgba="0.8 0.2 0.2 1"/>
+                    <joint name="pitch" pos="0 0 -0.085" type="hinge" axis="0 1 0" range="-10 20" damping="0.002"/>
+
+                    <body name="motor18" pos="0 -0.03 0" euler="0 90 0">
+                        <geom type="cylinder" size="0.025 0.05" pos ="0 0 0" rgba="0.8 0.2 0.2 1"/>
+                        <!-- ul1 & ll1 -->
+                        <body name="ul1" euler="90 0 0" pos="0 0 0.05">
+                            <geom type="cylinder" size="0.005 0.015" pos="0 0 0.015" rgba="0.8 0.2 0.2 1"/>
+                            <joint name="joint18" type="hinge" pos="0 0 0" axis="0 -1 0" damping="0.002"/>
+                            <body name="ll1" euler="0 0 0" pos="0 0 0.0725">
+                                <geom name="ll1_geom" type="cylinder" size="0.005 0.0425" rgba="0.5 0.5 1 1"/>
+                                <joint name="ball1" type="ball" pos="0 0 -0.0425" damping="0.002"/>
+                                <site name="c1" pos="0 0 0.0425" type="sphere" size="0.006" rgba="0 0 1 1"/>
+                            </body>
+                        </body>
+                    </body>
+                    
+                    <body name="motor19" pos="0 0.03 0" euler="0 90 0">
+                        <geom type="cylinder" size="0.025 0.05" pos ="0 0 0" rgba="0.8 0.2 0.2 1"/>
+                        <!-- ul2 & ll2 -->
+                        <body name="ul2" euler="-90 0 0" pos="0 0 0.05">
+                            <geom type="cylinder" size="0.005 0.015" pos="0 0 0.015" rgba="0.8 0.2 0.2 1"/>
+                            <joint name="joint19" type="hinge" pos="0 0 0" axis="0 1 0" damping="0.002"/>
+                            <body name="ll2" euler="0 0 0" pos="0 0 0.0725">
+                                <geom name="ll2_geom" type="cylinder" size="0.005 0.0425" rgba="0.5 0.5 1 1"/>
+                                <joint name="ball2" type="ball" pos="0 0 -0.0425" damping="0.002"/>
+                                <site name="c2" pos="0 0 0.0425" type="sphere" size="0.006" rgba="0 0 1 1"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <equality>
+        <weld site1="SS1" site2="c1"/>
+        <weld site1="SS2" site2="c2"/>
+    </equality>
+
+    <actuator>
+        <position joint="pitch" ctrlrange="-0.174 0.348"/>
+        <position joint="roll" ctrlrange="-0.262 0.262"/>
+    </actuator>
+
+    <sensor>
+        <jointpos name="joint18_pos" joint="joint18" />
+        <jointpos name="joint19_pos" joint="joint19" />
+    </sensor>
+
+</mujoco>
