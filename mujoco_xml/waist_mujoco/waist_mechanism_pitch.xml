@@ -6,7 +6,7 @@
     <statistic center="0 0 0.1" extent="1.5"/>
 
     <default>
-        <geom rgba="0.75 0.76 0.78 0.1" solref="0.5 0.5" solimp="0.5 0.5 0.001 5 3"/>
+        <geom rgba="0.75 0.76 0.78 1" solref="0.5 0.5" solimp="0.5 0.5 0.001 5 3"/>
         <mesh scale="0.001 0.001 0.001" />
         <joint damping="0.01"/>
         <site type="sphere" size="0.00125" rgba="0 0 1 0.1"/>
@@ -168,9 +168,9 @@
     </equality>
 
     <actuator>
-        <position name="Roll" joint="Roll" kp="150" kv="10" ctrlrange="-0.26179 0.26179"/>
-        <position name="Pitch" joint="Pitch" kp="150" kv="10" ctrlrange="-0.349066 0.349066"/>
-        <position name="Yaw" joint="Yaw" kp="800" kv="120" ctrlrange="-1.57080 1.57080"/>
+        <position name="Roll" joint="Roll" kp="10" kv="1" ctrlrange="-0.26179 0.26179"/>
+        <position name="Pitch" joint="Pitch" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
+        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/>
         <!-- <position name="Joint_18" joint="Joint_18" ctrlrange="-0.349066 0.349066"/>
         <position name="Joint_19" joint="Joint_19" ctrlrange="-0.349066 0.349066"/>
         <position name="Yaw" joint="Yaw" ctrlrange="-1.57080 1.57080"/> -->
@@ -180,12 +180,13 @@
         <!-- Position sensors -->
         <jointpos name="joint18_position" joint="Joint_18" />
         <jointpos name="joint19_position" joint="Joint_19" />
+
         <!-- Torque sensors -->
         <jointactuatorfrc name="tau18" joint="Joint_18"/>
         <jointactuatorfrc name="tau19" joint="Joint_19"/>
+        <jointactuatorfrc name="tau19_Yaw" joint="Yaw"/>
         <!-- <jointactuatorfrc name="tau_Pitch" joint="Pitch"/> -->
         <!-- <jointactuatorfrc name="tau_Roll" joint="Roll"/> -->
-        <jointactuatorfrc name="tau19_Yaw" joint="Yaw"/>
 
     </sensor>
 
