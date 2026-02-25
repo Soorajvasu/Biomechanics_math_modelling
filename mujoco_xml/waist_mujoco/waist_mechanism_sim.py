@@ -32,7 +32,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         
         roll = 0.0*np.pi/180 * np.cos(2*np.pi/4*t)
         pitch = 10.0*np.pi/180 * np.sin(2*np.pi/4*t)
-        yaw = 0.0*np.pi/180 * np.sin(2*np.pi/4*t)
+        yaw = 40.0*np.pi/180 * np.sin(2*np.pi/4*t)
         
         data.ctrl[0] = roll
         data.ctrl[1] = pitch
@@ -52,23 +52,23 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         elapsed_time = time.time() - start_clock
         # print(f"Simulation time: {sim_time:.3f} | Real time: {elapsed_time:.3f}")
         
-        # Joint Torque extraction
-        torque1 = data.qfrc_actuator[0]*1000
-        torque2 = data.qfrc_actuator[1]*1000
+        # # Joint Torque extraction
+        # torque1 = data.qfrc_actuator[0]*1000
+        # torque2 = data.qfrc_actuator[1]*1000
         
-        # print(f"T_pitch: {torque1:.5f} | T_roll: {torque2:.5f}")
+        # # print(f"T_pitch: {torque1:.5f} | T_roll: {torque2:.5f}")
         
-        time_log.append(data.time)
-        torque_log.append(torque2)
+        # time_log.append(data.time)
+        # torque_log.append(torque2)
 
         viewer.sync()
 
-plt.figure()
-plt.plot(time_log, torque_log)
-plt.xlabel("Time (s)")
-plt.ylabel("Torque (Nm)")
-plt.xlim([0, 20.0])
-plt.ylim([-5.0, 5.0])
-plt.title("Pitch Joint Torque vs Time")
-plt.grid(True)
-plt.show()
+# plt.figure()
+# plt.plot(time_log, torque_log)
+# plt.xlabel("Time (s)")
+# plt.ylabel("Torque (Nm)")
+# plt.xlim([0, 20.0])
+# plt.ylim([-5.0, 5.0])
+# plt.title("Pitch Joint Torque vs Time")
+# plt.grid(True)
+# plt.show()
