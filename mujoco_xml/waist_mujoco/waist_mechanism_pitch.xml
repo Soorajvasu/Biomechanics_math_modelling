@@ -1,14 +1,14 @@
 <mujoco model="waist_mechanism">
 
     <compiler meshdir="waist_RSU_stl"/>
-    <option gravity="0 0 -9.81" timestep="0.005" integrator="RK4" iterations="50" tolerance="1e-10"/>
+    <option gravity="0 0 -9.81" timestep="0.025" integrator="RK4" iterations="50" tolerance="1e-10"/>
 
     <statistic center="0 0 0.1" extent="1.5"/>
 
     <default>
         <geom rgba="0.75 0.76 0.78 1" solref="0.5 0.5" solimp="0.5 0.5 0.001 5 3"/>
         <mesh scale="0.001 0.001 0.001" />
-        <joint damping="0.01"/>
+        <joint damping="0.0001"/>
         <site type="sphere" size="0.00125" rgba="0 0 1 0.1"/>
     </default>
 
