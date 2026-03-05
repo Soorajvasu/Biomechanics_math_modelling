@@ -61,7 +61,7 @@
                     <body name="torso" euler="0 0 0" pos="0 0 0">
                         <geom name="torso" type="mesh" mesh="torso"/>
                         <inertial
-                            pos="0.05 0.0 0.086551020"
+                            pos="0.0 0.0 0.086551020"
                             mass="4.56"
                             fullinertia="0.054997148 0.0073533371 0.053090282 -0.0000043882031 0 0"/>
                         <joint name="Pitch" type="hinge" pos="0 0 0" axis="0 1 0" range="-25 25" />
