@@ -13,7 +13,6 @@ dt = model.opt.timestep
 
 with mujoco.viewer.launch_passive(model, data) as viewer:
     
-    # camera initial view
     viewer.cam.azimuth = 225
     viewer.cam.elevation = -20
     viewer.cam.distance = 2.0
@@ -30,45 +29,42 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Control
         t = data.time
         
-        roll = 0.0*np.pi/180 * np.cos(2*np.pi/4*t)
-        pitch = 10.0*np.pi/180 * np.sin(2*np.pi/4*t)
+        joint18 = 0.0*np.pi/180 * np.cos(2*np.pi/4*t)
+        joint19 = 15.0*np.pi/180 * np.sin(2*np.pi/4*t)
         yaw = 0.0*np.pi/180 * np.sin(2*np.pi/4*t)
         
-        data.ctrl[0] = roll
-        data.ctrl[1] = pitch
+        data.ctrl[0] = joint18
+        data.ctrl[1] = joint19
         data.ctrl[2] = yaw
 
         # Step simulation
         mujoco.mj_step(model, data)
-        
-        # Real-time sync
+
+        # 🔹 Compute inverse dynamics (key addition)
+        mujoco.mj_inverse(model, data)
+
+        # 🔹 Extract clean joint torque
+        torque2 = data.qfrc_inverse[1]   # NO scaling
+
+        # Time sync
         next_time += dt
         sleep_time = next_time - time.time()
         if sleep_time > 0:
             time.sleep(sleep_time)
-        
-        # Sim time and real time
-        sim_time  = data.time
-        elapsed_time = time.time() - start_clock
-        # print(f"Simulation time: {sim_time:.3f} | Real time: {elapsed_time:.3f}")
-        
-        # Joint Torque extraction
-        torque1 = data.qfrc_actuator[0]*1000
-        torque2 = data.qfrc_actuator[1]*1000
-        
-        # print(f"T_pitch: {torque1:.5f} | T_roll: {torque2:.5f}")
-        
+
+        # Log data
         time_log.append(data.time)
         torque_log.append(torque2)
 
         viewer.sync()
 
+# Plot
 plt.figure()
 plt.plot(time_log, torque_log)
 plt.xlabel("Time (s)")
 plt.ylabel("Torque (Nm)")
 plt.xlim([0, 20.0])
 plt.ylim([-5.0, 5.0])
-plt.title("Pitch Joint Torque vs Time")
+plt.title("Pitch Joint Torque vs Time (Inverse Dynamics)")
 plt.grid(True)
 plt.show()

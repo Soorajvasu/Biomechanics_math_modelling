@@ -157,28 +157,28 @@
     </worldbody>
 
     <equality>
-        <weld site1="a1" site2="e1"/>
-        <weld site1="b1" site2="f1"/>
-        <weld site1="c1" site2="g1"/>
-        <weld site1="d1" site2="h1"/>
-        <weld site1="a2" site2="e2"/>
-        <weld site1="b2" site2="f2"/>
-        <weld site1="c2" site2="g2"/>
-        <weld site1="d2" site2="h2"/>
+        <weld site1="a1" site2="e1" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="b1" site2="f1" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="c1" site2="g1" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="d1" site2="h1" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="a2" site2="e2" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="b2" site2="f2" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="c2" site2="g2" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
+        <weld site1="d2" site2="h2" solref="0.0001 1" solimp="0.99 0.999 0.001"/>
     </equality>
 
     <actuator>
-        <position name="Roll" joint="Roll" kp="10" kv="1" ctrlrange="-0.26179 0.26179"/>
+        <!-- <position name="Roll" joint="Roll" kp="10" kv="1" ctrlrange="-0.26179 0.26179"/>
         <position name="Pitch" joint="Pitch" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
-        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/>
+        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/> -->
 
         <!-- <position name="Roll" joint="Roll" kp="0" kv="" ctrlrange="-0.26179 0.26179"/>
         <position name="Pitch" joint="Pitch" kp="0" kv="0" ctrlrange="-0.349066 0.349066"/>
         <position name="Yaw" joint="Yaw" kp="0" kv="0" ctrlrange="-1.57080 1.57080"/> -->
 
-        <!-- <position name="Joint_18" joint="Joint_18" ctrlrange="-0.349066 0.349066"/>
-        <position name="Joint_19" joint="Joint_19" ctrlrange="-0.349066 0.349066"/>
-        <position name="Yaw" joint="Yaw" ctrlrange="-1.57080 1.57080"/> -->
+        <position name="Joint_18" joint="Joint_18" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
+        <position name="Joint_19" joint="Joint_19" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
+        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/>
 
     </actuator>
 
