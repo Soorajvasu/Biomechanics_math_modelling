@@ -168,17 +168,17 @@
     </equality>
 
     <actuator>
-        <!-- <position name="Roll" joint="Roll" kp="10" kv="1" ctrlrange="-0.26179 0.26179"/>
+        <position name="Roll" joint="Roll" kp="10" kv="1" ctrlrange="-0.26179 0.26179"/>
         <position name="Pitch" joint="Pitch" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
-        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/> -->
+        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/>
 
         <!-- <position name="Roll" joint="Roll" kp="0" kv="" ctrlrange="-0.26179 0.26179"/>
         <position name="Pitch" joint="Pitch" kp="0" kv="0" ctrlrange="-0.349066 0.349066"/>
         <position name="Yaw" joint="Yaw" kp="0" kv="0" ctrlrange="-1.57080 1.57080"/> -->
 
-        <position name="Joint_18" joint="Joint_18" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
+        <!-- <position name="Joint_18" joint="Joint_18" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
         <position name="Joint_19" joint="Joint_19" kp="10" kv="1" ctrlrange="-0.349066 0.349066"/>
-        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/>
+        <position name="Yaw" joint="Yaw" kp="10" kv="1.5" ctrlrange="-1.57080 1.57080"/> -->
 
     </actuator>
 
