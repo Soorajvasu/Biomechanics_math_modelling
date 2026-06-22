@@ -188,9 +188,9 @@
         <jointpos name="joint19_position" joint="Joint_19" />
 
         <!-- Torque sensors -->
-        <jointactuatorfrc name="tau18" joint="Roll"/>
+        <!-- <jointactuatorfrc name="tau18" joint="Roll"/>
         <jointactuatorfrc name="tau19" joint="Pitch"/>
-        <jointactuatorfrc name="tau19_Yaw" joint="Yaw"/>
+        <jointactuatorfrc name="tau19_Yaw" joint="Yaw"/> -->
 
     </sensor>
 
